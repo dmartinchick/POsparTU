@@ -1,8 +1,10 @@
 """Модуль настроек подключений"""
 
 from dataclasses import dataclass
-
 from environs import Env
+
+# Глобальные перемееные
+FORMAT = '%(asctime)-15s: %(message)s'
 
 
 @dataclass
