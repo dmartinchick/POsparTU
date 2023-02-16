@@ -1,5 +1,4 @@
-from loguru import logger
-
+from data.config import logger
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 

@@ -2,6 +2,8 @@
 
 from dataclasses import dataclass
 from environs import Env
+from loguru import logger
+
 
 # Глобальные перемееные
 FORMAT = '%(asctime)-15s: %(message)s'
