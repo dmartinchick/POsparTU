@@ -40,12 +40,6 @@ class TgBot:
     admin_ids: list[int]
 
 
-@dataclass
-class Config:
-    tg_bot: TgBot
-    db: DbConfig | None
-
-
 class ConfigSingleton(object):
 
     def __new__(cls, *args, **kwargs):
@@ -71,19 +65,3 @@ class ConfigSingleton(object):
     def db(self):
         return self.__db
 
-
-def load_config(path: str = None):
-    env = Env()
-    env.read_env(path)
-
-    tg_bot = TgBot(
-        token=env.str("BOT_TOKEN"),
-        admin_ids=list(map(int, env.list("ADMINS")))
-    )
-    db = DbSqlLiteConfig(db_name='POsparTU_DB')
-
-    config = Config(
-        tg_bot=tg_bot,
-        db=db
-    )
-    return config
