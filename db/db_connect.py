@@ -9,7 +9,3 @@ url = config.db.get_url()
 engine = create_engine(url, echo=True)
 
 reg = registry()
-
-
-class Base(MappedAsDataclass, DeclarativeBase):
-    pass
