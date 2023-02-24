@@ -6,6 +6,8 @@ from handlers.echo import register_echo_handlers
 from handlers.main_menu import register_main_menu_handlers
 from handlers.admin_panel import register_admin_panel_handlers
 
+from utils.other import created_all, add_user, update_user
+
 
 @logger.catch
 def main():
