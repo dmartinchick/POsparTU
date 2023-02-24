@@ -5,7 +5,7 @@ from data.config import logger
 
 
 async def echo(message: Message):
-    logger.info(message.text)
+    logger.info(message.from_user)
     await message.answer(message.text)
 
 
