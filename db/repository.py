@@ -11,7 +11,7 @@ class Repository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def all(self, spec: Specification):
+    def list(self, spec: Specification):
         raise NotImplementedError
 
     @abstractmethod

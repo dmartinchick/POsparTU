@@ -6,6 +6,7 @@ class UnitOfWork(ABC):
 
     def __init__(self, repository: Repository):
         self.repository = repository
+        self.session = repository.session
 
     @abstractmethod
     def begin(self):
@@ -26,3 +27,14 @@ class UnitOfWork(ABC):
     def __exit__(self, exc_type, exc_val, exc_tb):
         if exc_type is not None:
             self.rollback()
+
+
+class AlchemyUnitOfWork(UnitOfWork):
+    def begin(self):
+        self.session.begin()
+
+    def rollback(self):
+        self.session.rollback()
+
+    def commit(self):
+        self.session.comit()
