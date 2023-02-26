@@ -1,6 +1,8 @@
+from datetime import datetime
 from dependency_injector.wiring import inject, Provide
 
 from db.specification import Specification
+from db.user.specification import UserByIdSpecification
 from db.containers import Container
 from db.exeptions import NotFoundExeption
 from db.user.repository import Repository   # TODO: в примере просто Repository
@@ -42,9 +44,17 @@ def add_user(
     unit_of_work.commit()
 
 
-# TODO: реализовать
 @inject
 def update_user(
+        user_id: int,
+        update_param: str,
+        update_data: str | bool,
         unit_of_work: UnitOfWork = Provide[Container.users_uow]
 ):
-    pass
+    spec = UserByIdSpecification()
+    user = unit_of_work.repository.get(spec.is_satisfied(user_id))
+    if hasattr(user, update_param):
+        user.__setattr__(update_param, update_data)
+        user.update_at = datetime.now()
+        unit_of_work.repository.update(user)
+        unit_of_work.commit()
