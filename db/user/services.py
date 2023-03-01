@@ -10,30 +10,27 @@ from db.unit_of_work import UnitOfWork
 from db.user.model import User
 
 
-@inject
-def list_users(spec: Specification,
-               repository: Repository = Provide[Container.users_repository]):
+def list_users(spec: Specification | None,
+               repository: Repository):
     try:
         return repository.list(spec)
     except NotFoundExeption:
-        return None
+        return print("вот где косяк")
 
 
-@inject
 def get_user(spec: Specification,
-             repository: Repository = Provide[Container.users_repository]):
+             repository: Repository):
     try:
         return repository.get(spec)
     except NotFoundExeption:
         return None
 
 
-@inject
 def add_user(
         user_id: int,
         first_name: str,
         last_name: str,
-        unit_of_work: UnitOfWork = Provide[Container.users_uow]
+        unit_of_work: UnitOfWork
 ):
     new_user = User(
         id=user_id,
@@ -44,12 +41,11 @@ def add_user(
     unit_of_work.commit()
 
 
-@inject
 def update_user(
         user_id: int,
         update_param: str,
         update_data: str | bool,
-        unit_of_work: UnitOfWork = Provide[Container.users_uow]
+        unit_of_work: UnitOfWork
 ):
     spec = UserByIdSpecification()
     user = unit_of_work.repository.get(spec.is_satisfied(user_id))

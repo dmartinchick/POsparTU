@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from db.sessions import Session
+from db.specification import Specification
 
 
 class Repository(ABC):
@@ -7,11 +9,11 @@ class Repository(ABC):
         self.session = session
 
     @abstractmethod
-    def get(self, spec: Specification):
+    def get(self, spec: Specification | None):
         raise NotImplementedError
 
     @abstractmethod
-    def list(self, spec: Specification):
+    def list(self, spec: Specification | None):
         raise NotImplementedError
 
     @abstractmethod

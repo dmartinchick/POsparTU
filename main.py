@@ -5,8 +5,11 @@ from data.config import logger, ConfigSingleton
 from handlers.echo import register_echo_handlers
 from handlers.main_menu import register_main_menu_handlers
 from handlers.admin_panel import register_admin_panel_handlers
+from db.containers import Container
 
-from utils.other import created_all, add_user, update_user
+from db.user.commands import get_superusers_list, get_all_active_users, get_user_by_id
+# TODO: Для тестов
+from db.user.model import User
 
 
 @logger.catch
@@ -15,6 +18,7 @@ def main():
     bot = Bot(token=config.tg_bot.token)
     storage = MemoryStorage()
     dp = Dispatcher(bot, storage=storage)
+    container = Container()
 
     # register handlers
     register_echo_handlers(dp)
