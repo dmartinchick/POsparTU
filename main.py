@@ -7,6 +7,7 @@ from handlers.main_menu import register_main_menu_handlers
 from handlers.admin_panel import register_admin_panel_handlers
 from db.containers import Container
 from utils.notifi_admins import on_startup_notify, on_shutdown_notify
+from utils.set_bot_command import set_default_commands
 
 from db.user.commands import get_superusers_list, get_all_active_users, get_user_by_id, add_new_user
 # TODO: Для тестов
@@ -16,6 +17,7 @@ from db.user.model import User
 async def on_startup(dp: Dispatcher):
     container = Container()
     await on_startup_notify(dp, container=container)
+    await set_default_commands(dp)
 
 
 async def on_shutdown(dp: Dispatcher):
