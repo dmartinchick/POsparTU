@@ -37,4 +37,4 @@ class AlchemyUnitOfWork(UnitOfWork):
         self.session.rollback()
 
     def commit(self):
-        self.session.comit()
+        self.session.commit()

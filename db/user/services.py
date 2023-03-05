@@ -5,17 +5,17 @@ from db.specification import Specification
 from db.user.specification import UserByIdSpecification
 from db.containers import Container
 from db.exeptions import NotFoundExeption
-from db.user.repository import Repository   # TODO: в примере просто Repository
+from db.user.repository import Repository
 from db.unit_of_work import UnitOfWork
 from db.user.model import User
 
 
-def list_users(spec: Specification | None,
+def list_users(spec: Specification,
                repository: Repository):
     try:
         return repository.list(spec)
     except NotFoundExeption:
-        return print("вот где косяк")
+        return None
 
 
 def get_user(spec: Specification,

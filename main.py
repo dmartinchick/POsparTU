@@ -7,7 +7,7 @@ from handlers.main_menu import register_main_menu_handlers
 from handlers.admin_panel import register_admin_panel_handlers
 from db.containers import Container
 
-from db.user.commands import get_superusers_list, get_all_active_users, get_user_by_id
+from db.user.commands import get_superusers_list, get_all_active_users, get_user_by_id, add_new_user
 # TODO: Для тестов
 from db.user.model import User
 
@@ -26,6 +26,7 @@ def main():
     register_admin_panel_handlers(dp)
 
     # start program
+
     executor.start_polling(dp)
 
 
