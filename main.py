@@ -6,10 +6,21 @@ from handlers.echo import register_echo_handlers
 from handlers.main_menu import register_main_menu_handlers
 from handlers.admin_panel import register_admin_panel_handlers
 from db.containers import Container
+from utils.notifi_admins import on_startup_notify, on_shutdown_notify
 
 from db.user.commands import get_superusers_list, get_all_active_users, get_user_by_id, add_new_user
 # TODO: Для тестов
 from db.user.model import User
+
+
+async def on_startup(dp: Dispatcher):
+    container = Container()
+    await on_startup_notify(dp, container=container)
+
+
+async def on_shutdown(dp: Dispatcher):
+    container = Container()
+    await on_shutdown_notify(dp, container)
 
 
 @logger.catch
@@ -18,7 +29,7 @@ def main():
     bot = Bot(token=config.tg_bot.token)
     storage = MemoryStorage()
     dp = Dispatcher(bot, storage=storage)
-    container = Container()
+    # container = Container()
 
     # register handlers
     register_echo_handlers(dp)
@@ -27,7 +38,7 @@ def main():
 
     # start program
 
-    executor.start_polling(dp)
+    executor.start_polling(dp, on_startup=on_startup, on_shutdown=on_shutdown)
 
 
 if __name__ == '__main__':
